@@ -70,6 +70,6 @@ async def predict_home_price(
 if __name__ == "__main__":
     
     print("Starting FastAPI Server For Home Price Prediction...")
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
     
     
