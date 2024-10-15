@@ -2,8 +2,11 @@ from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from contextlib import asynccontextmanager
-from pydantic import BaseModel
 import util
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -19,7 +22,6 @@ async def lifespan(app: FastAPI):
 # Create the FastAPI app and pass the lifespan context
 app = FastAPI(lifespan=lifespan)
 
-
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
@@ -28,6 +30,17 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
+# Mount the static files (CSS, JS, etc.)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Initialize Jinja2 templates folder
+templates = Jinja2Templates(directory="templates")
+
+# Serve the homepage (index.html)
+@app.get("/")
+def read_root(request: Request):
+    return templates.TemplateResponse("app.html", {"request": request})
 
 @app.get("/get_location_names")
 async def get_location_names():
@@ -41,13 +54,6 @@ async def get_area_types():
 async def get_area_types():
     return {"area_type": util.get_area_types(),"locations": util.get_location_names()}
 
-class PricePredictionRequest(BaseModel):
-    location: str
-    area_type: str
-    total_sqft: float
-    bhk: int
-    bath: int
-    balcony:int
 
 @app.post("/predict_home_price")
 async def predict_home_price(

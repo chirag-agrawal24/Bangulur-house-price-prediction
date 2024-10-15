@@ -1,2 +1,0 @@
-All path are relative to server directory .
-Run the server from inside the server directory.
