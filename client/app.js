@@ -1,10 +1,10 @@
 function onPageLoad() {
     console.log("document loaded");
     var url = "http://127.0.0.1:8000/get_areas_and_locations"; // Use this if you are NOT using nginx 
-    //   var url = "/api/get_location_names"; // Use this if  you are using nginx.
+    //   var url = "/api/get_areas_and_locations"; // Use this if  you are using nginx.
     $.get(url, function (data, status) {
 
-        console.log("got response for get_location_names request");
+        console.log("got response for get_areas_and_locations request");
         if (data) {
             if (data)
             var locations = data.locations;
