@@ -11,7 +11,7 @@ pipe_model=None
 def load_saved_artifacts():
     global columns,locations,area_type,pipe_model
 
-    with open('../model/columns.json') as file:
+    with open('model/columns.json') as file:
         data=json.load(file)
         columns=data['columns']
 
@@ -23,7 +23,7 @@ def load_saved_artifacts():
         area_type.sort()
    
 
-    pipe_model=joblib.load('../model/pipeline.pkl')
+    pipe_model=joblib.load('model/pipeline.pkl')
 
 
 
