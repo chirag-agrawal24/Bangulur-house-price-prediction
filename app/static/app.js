@@ -1,6 +1,6 @@
 function onPageLoad() {
     console.log("document loaded");
-    var url = "http://127.0.0.1:8000/get_areas_and_locations"; // Use this if you are NOT using nginx 
+    var url = "http://0.0.0.0:8000/get_areas_and_locations"; // Use this if you are NOT using nginx 
     //   var url = "/api/get_areas_and_locations"; // Use this if  you are using nginx.
     $.get(url, function (data, status) {
 
@@ -71,7 +71,7 @@ function onClickedEstimatePrice() {
     var area_type = document.getElementById("uiAreaType");
     var estPrice = document.getElementById("uiEstimatedPrice");
 
-    var url = "http://127.0.0.1:8000/predict_home_price"; //Use this if you are NOT using nginx 
+    var url = "http://0.0.0.0:8000/predict_home_price"; //Use this if you are NOT using nginx 
     // var url = "/api/predict_home_price"; // Use this if  you are using nginx.
 
     $.post(url, {
