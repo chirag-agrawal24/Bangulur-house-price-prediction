@@ -1,0 +1,1 @@
+This dataset is publicly available on kaggle: https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data
