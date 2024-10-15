@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Form
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from contextlib import asynccontextmanager
 from pydantic import BaseModel
@@ -19,6 +20,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 @app.get("/get_location_names")
 async def get_location_names():
     return {"locations": util.get_location_names()}
@@ -26,6 +36,10 @@ async def get_location_names():
 @app.get("/get_area_types")
 async def get_area_types():
     return {"area_type": util.get_area_types()}
+
+@app.get("/get_areas_and_locations")
+async def get_area_types():
+    return {"area_type": util.get_area_types(),"locations": util.get_location_names()}
 
 class PricePredictionRequest(BaseModel):
     location: str

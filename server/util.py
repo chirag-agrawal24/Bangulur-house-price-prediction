@@ -12,14 +12,16 @@ def load_saved_artifacts():
     global columns,locations,area_type,pipe_model
 
     with open('../model/columns.json') as file:
-        columns=json.load(file)['columns']
+        data=json.load(file)
+        columns=data['columns']
 
-    locations=[col.lstrip('location_').title() for col in columns if col.startswith('location_')]
-    locations.append('Other')
+        locations=data['locations']
+        locations.sort()
+        locations.append('Other')
 
-
-    area_type=[col.lstrip('area_type_').title() for col in columns if col.startswith('area_type_')]
-    area_type.append('Other')
+        area_type=data['area_type']
+        area_type.sort()
+   
 
     pipe_model=joblib.load('../model/pipeline.pkl')
 
@@ -50,7 +52,7 @@ def get_estimated_price(area_type:str,location:str,total_sqft:float,bhk:int,bath
         x[loc]=1
     if area in x.columns:
         x[area]=1
-    
+
     return round(pipe_model.predict(x)[0],2) # NOte prices are in lakhs
 
 if __name__=='__main__':
@@ -58,3 +60,4 @@ if __name__=='__main__':
     print(locations)
     print(pipe_model['Linear_Regression'].coef_)
     print(get_estimated_price('built-up  area','Sarjapur',3854.5, 6,0, 4))
+    print(get_estimated_price('Otherdcs','Sarjapur',3854.5, 6,0, 4))
