@@ -87,7 +87,7 @@ function onClickedEstimatePrice() {
             estPrice.innerHTML = "<h2>" + data.estimated_price.toString() + " Lakh INR</h2>";
         }
         else {
-            estPrice.innerHTML = "<h2>" + "Not Available" 
+            estPrice.innerHTML = "<h2>Not Available</h2>";  
         }
 
         console.log(status);
