@@ -52,8 +52,10 @@ def get_estimated_price(area_type:str,location:str,total_sqft:float,bhk:int,bath
         x[loc]=1
     if area in x.columns:
         x[area]=1
+    
+    estimated_price=round(pipe_model.predict(x)[0],2) # NOte prices are in lakhs
 
-    return round(pipe_model.predict(x)[0],2) # NOte prices are in lakhs
+    return estimated_price if estimated_price >1 else "Not Available"
 
 if __name__=='__main__':
     load_saved_artifacts()
