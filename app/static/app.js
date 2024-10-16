@@ -83,7 +83,7 @@ function onClickedEstimatePrice() {
         area_type : area_type.value
     },function(data, status) {
         console.log(data.estimated_price);
-        if (data.estimated_price > 1) {
+        if (parseFloat(data.estimated_price) > 1) {
             estPrice.innerHTML = "<h2>" + data.estimated_price.toString() + " Lakh INR</h2>";
         }
         else {
